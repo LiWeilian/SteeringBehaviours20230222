@@ -22,7 +22,7 @@ namespace SteeringBehavioursCore.Renderer
             };
         }
 
-        public void Render(Field field)
+        public void Render(IField field)
         {
             Clear(_backgroundColor);
             foreach (var boid in field.Boids)

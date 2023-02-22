@@ -5,7 +5,7 @@ namespace SteeringBehavioursCore.Renderer
 {
     public interface IRenderer : IDisposable
     {
-        void Render(Field field);
+        void Render(IField field);
         void DrawBoid(Boid boid, Color color);
 
         void Clear(Color color);

@@ -3,16 +3,16 @@ using SteeringBehavioursCore.Renderer;
 
 namespace SteeringBehavioursCore.Controller
 {
-    public class Controller
+    public class FlockingBoidsController
     {
         private const int BoidsCount = 100;
         private const int EnemyCount = 5;
-        public Field Field { get; private set; }
+        public IField Field { get; private set; }
         public IRenderer Renderer { get; private set; }
 
         public void CreateField()
         {
-            Field = new Field(
+            Field = new FlockingBoidsField(
                 BoidsCount,
                 EnemyCount
             );

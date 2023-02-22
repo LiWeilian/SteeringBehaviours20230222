@@ -5,12 +5,12 @@ using SteeringBehavioursCore.Model.Behaviour;
 
 namespace SteeringBehavioursCore.Model
 {
-    public class Field
+    public class FlockingBoidsField : IField
     {
-        public readonly Boid[] Boids;
+        public Boid[] Boids { get; private set; }
         private float _width = 1200f, _height = 600f;
 
-        public Field(int boidsCount, int enemyCount)
+        public FlockingBoidsField(int boidsCount, int enemyCount)
         {
             if (enemyCount > boidsCount)
                 throw new Exception(
