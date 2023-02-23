@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SteeringBehavioursCore.Model.Behaviour;
 
-namespace SteeringBehavioursCore.Model
+using SteeringBehavioursCore.Model.Behaviour;
+using SteeringBehavioursCore.Model.Interaction;
+using SteeringBehavioursCore.Model.Field;
+
+namespace SteeringBehavioursCore.Model.Field
 {
     public class ArriveField : IField
     {
         public Boid[] Boids { get; private set; }
+        public IFieldInteraction Interaction { get; private set; }
         public List<Behaviour.Behaviour> Behaviours { get; private set; }
+
         private float _width = 1200f, _height = 600f;
 
         public ArriveField(int boids_count)
         {
+            Interaction = new ArriveInteraction(this);
+
             Boids = new Boid[boids_count];
 
             GenerateRandomBoids();
@@ -37,11 +44,11 @@ namespace SteeringBehavioursCore.Model
         {
             Behaviours = new List<Behaviour.Behaviour>
             {
-                new FlockBehaviour(Boids),
-                new AlignBehaviour(Boids),
-                new AvoidBoidsBehaviour(Boids),
-                new ArriveBehaviour(Boids),
-                new AvoidWallsBehaviour(Boids, _width, _height)
+                new FlockBehaviour(this),
+                new AlignBehaviour(this),
+                new AvoidBoidsBehaviour(this),
+                new ArriveBehaviour(this),
+                new AvoidWallsBehaviour(this, _width, _height)
             };
 
             var rnd = new Random();

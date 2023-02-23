@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="Controller\ArriveController.cs" />
     <Compile Include="Controller\FlockingBoidsController.cs" />
-    <Compile Include="Model\ArriveField.cs" />
+    <Compile Include="Model\Field\ArriveField.cs" />
     <Compile Include="Model\Behaviour\AlignBehaviour.cs" />
     <Compile Include="Model\Behaviour\ArriveBehaviour.cs" />
     <Compile Include="Model\Behaviour\AvoidBoidsBehaviour.cs" />
@@ -98,8 +98,12 @@
     <Compile Include="Model\Behaviour\Behaviour.cs" />
     <Compile Include="Model\Behaviour\FlockBehaviour.cs" />
     <Compile Include="Model\Boid.cs" />
-    <Compile Include="Model\FlockingBoidsField.cs" />
-    <Compile Include="Model\IField.cs" />
+    <Compile Include="Model\Interaction\ArriveInteraction.cs" />
+    <Compile Include="Model\Interaction\BaseInteraction.cs" />
+    <Compile Include="Model\Field\FlockingBoidsField.cs" />
+    <Compile Include="Model\Field\IField.cs" />
+    <Compile Include="Model\Interaction\FlockingBoidsInteraction.cs" />
+    <Compile Include="Model\Interaction\IFieldInteraction.cs" />
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Velocity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

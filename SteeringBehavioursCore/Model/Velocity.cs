@@ -21,12 +21,17 @@ namespace SteeringBehavioursCore.Model
             return angle;
         }
 
+        public float GetCurrentSpeed()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y);
+        }
+
         public void SetSpeed(float speed)
         {
             if (X == 0 && Y == 0)
                 return;
 
-            var currentSpeed = (float)Math.Sqrt(X * X + Y * Y);
+            var currentSpeed = this.GetCurrentSpeed();
 
             var targetX = X / currentSpeed * speed;
             var targetY = Y / currentSpeed * speed;

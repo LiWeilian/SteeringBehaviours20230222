@@ -1,11 +1,13 @@
-﻿namespace SteeringBehavioursCore.Model.Behaviour
+﻿using SteeringBehavioursCore.Model.Field;
+using SteeringBehavioursCore.Model.Field;
+
+namespace SteeringBehavioursCore.Model.Behaviour
 {
     internal class FlockBehaviour : Behaviour
     {
         private const float Weight = 0.0005f;
 
-        public FlockBehaviour(Boid[] boids) :
-            base(boids)
+        public FlockBehaviour(IField field) : base(field)
         {
         }
 

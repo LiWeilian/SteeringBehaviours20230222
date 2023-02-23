@@ -41,6 +41,7 @@ namespace FlockingBoidsDemo
             this.ResultField.TabIndex = 1;
             this.ResultField.Text = "skControl1";
             this.ResultField.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs>(this.SKElement_PaintSurface);
+            this.ResultField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ResultField_MouseDown);
             // 
             // FormFlockingBoids
             // 

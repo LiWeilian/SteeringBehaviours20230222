@@ -1,11 +1,12 @@
-﻿namespace SteeringBehavioursCore.Model.Behaviour
+﻿using SteeringBehavioursCore.Model.Field;
+
+namespace SteeringBehavioursCore.Model.Behaviour
 {
     internal class AvoidBoidsBehaviour : Behaviour
     {
         private const float Weight = 0.005f;
 
-        public AvoidBoidsBehaviour(Boid[] boids)
-            : base(boids)
+        public AvoidBoidsBehaviour(IField field) : base(field)
         {
         }
 

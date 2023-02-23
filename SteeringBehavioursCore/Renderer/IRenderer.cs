@@ -1,5 +1,6 @@
 ﻿using System;
 using SteeringBehavioursCore.Model;
+using SteeringBehavioursCore.Model.Field;
 
 namespace SteeringBehavioursCore.Renderer
 {

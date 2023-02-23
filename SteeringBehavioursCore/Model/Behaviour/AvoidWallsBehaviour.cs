@@ -1,4 +1,6 @@
-﻿namespace SteeringBehavioursCore.Model.Behaviour
+﻿using SteeringBehavioursCore.Model.Field;
+
+namespace SteeringBehavioursCore.Model.Behaviour
 {
     internal class AvoidWallsBehaviour : Behaviour
     {
@@ -8,8 +10,8 @@
         private readonly float _height;
         private readonly float _width;
 
-        public AvoidWallsBehaviour(Boid[] boids, float width, float height)
-            : base(boids)
+        public AvoidWallsBehaviour(IField field, float width, float height)
+            : base(field)
         {
             _width = width;
             _height = height;

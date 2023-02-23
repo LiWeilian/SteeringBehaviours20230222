@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SteeringBehavioursCore.Model.Interaction;
+using SteeringBehavioursCore.Model.Field;
 
 namespace SteeringBehavioursCore.Model.Behaviour
 {
     public class ArriveBehaviour : Behaviour
     {
         private const float Weight = 0.005f;
-        public Position ArrivePoint { get; set; }
-        public ArriveBehaviour(Boid[] boids) : base(boids)
+        public ArriveBehaviour(IField field) : base(field)
         {
 
         }
 
         public override void CalcVelocity(Boid curBoid)
         {
-            if (ArrivePoint == null)
+            if ((Field.Interaction as ArriveInteraction)?.ArrivePoint == null)
             {
                 return;
             }
             foreach (var boid in Boids)
             {
-                curBoid.Velocity += (ArrivePoint - curBoid.Position) * Weight;
+                curBoid.Velocity += ((Field.Interaction as ArriveInteraction).ArrivePoint - curBoid.Position) * Weight;
             }
         }
     }

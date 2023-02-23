@@ -44,5 +44,10 @@ namespace FlockingBoidsDemo
             _controller.CreateRenderer(new RendererSkiaSharp(e.Surface.Canvas));
             _controller.Renderer.Render(_controller.Field);
         }
+
+        private void ResultField_MouseDown(object sender, MouseEventArgs e)
+        {
+            _controller.Field.Interaction.OnMouseDown((int)e.Button, e.X, e.Y);
+        }
     }
 }

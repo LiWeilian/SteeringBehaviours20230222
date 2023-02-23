@@ -1,11 +1,12 @@
-﻿namespace SteeringBehavioursCore.Model.Behaviour
+﻿using SteeringBehavioursCore.Model.Field;
+
+namespace SteeringBehavioursCore.Model.Behaviour
 {
     internal class AlignBehaviour : Behaviour
     {
         private const float Weight = 0.05f;
 
-        public AlignBehaviour(Boid[] boids) :
-            base(boids)
+        public AlignBehaviour(IField field) : base(field)
         {
         }
 

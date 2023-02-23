@@ -13,6 +13,7 @@ using SteeringBehavioursCore.Controller;
 using SteeringBehavioursCore.Model;
 using SteeringBehavioursCore.Model.Behaviour;
 using SteeringBehavioursCore.Renderer;
+using SteeringBehavioursCore.Model.Field;
 
 namespace ArriveBoids
 {
@@ -48,16 +49,7 @@ namespace ArriveBoids
 
         private void ResultField_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_controller.Field is ArriveField)
-            {
-                foreach (var behaviour in (_controller.Field as ArriveField).Behaviours)
-                {
-                    if (behaviour is ArriveBehaviour)
-                    {
-                        (behaviour as ArriveBehaviour).ArrivePoint = new Position(e.X, e.Y);
-                    }
-                }
-            }
+            _controller.Field.Interaction.OnMouseDown((int)e.Button, e.X, e.Y);
         }
     }
 }
