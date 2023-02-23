@@ -76,6 +76,15 @@ namespace SteeringBehavioursCore.Model.Field
                 return;
             }
 
+            var behaviours = new List<Behaviour.Behaviour>
+            {
+                new FlockBehaviour(this),
+                new AlignBehaviour(this),
+                new AvoidBoidsBehaviour(this),
+                new ArriveBehaviour(this),
+                new AvoidWallsBehaviour(this, _width, _height)
+            };
+
             var rnd = new Random();
             List<Boid> boid_list = Boids.ToList();
             if (boid_list.Count < boids_count)
@@ -90,6 +99,8 @@ namespace SteeringBehavioursCore.Model.Field
                         (float)(rnd.NextDouble() - .5),
                         (float)(1 + rnd.NextDouble()));
                     boid_list.Add(new_boid);
+
+                    behaviours.ForEach(behaviour => new_boid.AddBehaviour(behaviour));
                 }
             } else
             {

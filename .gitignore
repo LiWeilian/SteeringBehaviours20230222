@@ -5,3 +5,5 @@ FlockingBoidsDemo/bin/
 FlockingBoidsDemo/obj/
 ArriveBoids/bin/
 ArriveBoids/obj/
+*.lock
+*.ide

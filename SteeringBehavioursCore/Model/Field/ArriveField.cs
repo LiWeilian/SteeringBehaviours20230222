@@ -14,7 +14,7 @@ namespace SteeringBehavioursCore.Model.Field
     {
         public Boid[] Boids { get; private set; }
         public IFieldInteraction Interaction { get; private set; }
-        public List<Behaviour.Behaviour> Behaviours { get; private set; }
+        //public List<Behaviour.Behaviour> Behaviours { get; private set; }
 
         private float _width = 1200f, _height = 600f;
 
@@ -42,7 +42,7 @@ namespace SteeringBehavioursCore.Model.Field
 
         private void GenerateRandomBoids()
         {
-            Behaviours = new List<Behaviour.Behaviour>
+            var behaviours = new List<Behaviour.Behaviour>
             {
                 new FlockBehaviour(this),
                 new AlignBehaviour(this),
@@ -61,7 +61,7 @@ namespace SteeringBehavioursCore.Model.Field
                     (float)(rnd.NextDouble() - .5),
                     (float)(1 + rnd.NextDouble()));
 
-                Behaviours.ForEach(
+                behaviours.ForEach(
                     behaviour => Boids[i].AddBehaviour(behaviour));
             }
         }
