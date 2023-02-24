@@ -11,7 +11,7 @@ namespace SteeringBehavioursCore.Controller
 {
     public class ArriveController
     {
-        private const int BoidsCount = 10;
+        private const int BoidsCount = 5;
         public IField Field { get; private set; }
         public IRenderer Renderer { get; private set; }
 

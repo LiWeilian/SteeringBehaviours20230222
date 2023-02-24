@@ -23,10 +23,5 @@ namespace SteeringBehavioursCore.Controller
         {
             Renderer = renderer;
         }
-
-        public void UpdateSetting(int boids_count, int enemy_count)
-        {
-            (Field as FlockingBoidsField).SetBoidsCount(boids_count, enemy_count);
-        }
     }
 }

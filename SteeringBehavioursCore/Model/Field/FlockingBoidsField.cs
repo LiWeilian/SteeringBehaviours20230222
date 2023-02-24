@@ -4,15 +4,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using SteeringBehavioursCore.Model.Behaviour;
 using SteeringBehavioursCore.Model.Interaction;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Field
 {
     public class FlockingBoidsField : IField
     {
-        public Boid[] Boids { get; private set; }
+        public IBoid[] Boids
+        {
+            get
+            {
+                List<IBoid> boids = new List<IBoid>();
+                normal_boids.ForEach(nb => boids.Add(nb));
+                enemy_boids.ForEach(eb => boids.Add(eb));
+
+                return boids.ToArray();
+            }
+        }
         public IFieldInteraction Interaction { get; private set; } 
 
         private float _width = 1200f, _height = 600f;
+
+        private List<NormalBoid> normal_boids = new List<NormalBoid>();
+        private List<EnemyBoid> enemy_boids = new List<EnemyBoid>(); 
 
         public FlockingBoidsField(int boidsCount, int enemyCount)
         {
@@ -21,8 +35,7 @@ namespace SteeringBehavioursCore.Model.Field
             if (enemyCount > boidsCount)
                 throw new Exception(
                     "Number of enemies is bigger than number of boids");
-            Boids = new Boid[boidsCount];
-            GenerateRandomBoids(enemyCount);
+            GenerateRandomBoids(boidsCount, enemyCount);
         }
 
         public void SetFieldSize(float width, float height)
@@ -33,7 +46,18 @@ namespace SteeringBehavioursCore.Model.Field
             (_width, _height) = (width, height);
         }
 
-        private void GenerateRandomBoids(int enemyCount)
+        private void GenerateRandomBoids(int boidsCount, int enemyCount)
+        {
+            this.IncreaseBoidsCount(boidsCount);
+            this.IncreaseEnemiesCount(enemyCount);
+        }
+
+        public void Advance(float stepSize = 1)
+        {
+            Parallel.ForEach(Boids, boid => boid.Move(stepSize));
+        }
+
+        public void IncreaseBoidsCount(int boids_inc)
         {
             var behaviours = new List<Behaviour.Behaviour>
             {
@@ -45,87 +69,63 @@ namespace SteeringBehavioursCore.Model.Field
             };
 
             var rnd = new Random();
-            for (var i = 0; i < Boids.GetLength(0); i++)
+
+            for (int i = 0; i < boids_inc; i++)
             {
-                Boids[i] = new Boid(
+                NormalBoid new_boid = new NormalBoid(
                     (float)rnd.NextDouble() * _width,
                     (float)rnd.NextDouble() * _height,
                     (float)(rnd.NextDouble() - .5),
                     (float)(rnd.NextDouble() - .5),
                     (float)(1 + rnd.NextDouble()));
-                if (i < enemyCount)
-                {
-                    Boids[i].IsEnemy = true;
-                    Boids[i].Speed -= .5f;
-                }
+                normal_boids.Add(new_boid);
 
-                behaviours.ForEach(
-                    behaviour => Boids[i].AddBehaviour(behaviour));
+                behaviours.ForEach(behaviour => new_boid.AddBehaviour(behaviour));
             }
         }
-
-        public void Advance(float stepSize = 1)
+        public void IncreaseEnemiesCount(int enemies_inc)
         {
-            Parallel.ForEach(Boids, boid => boid.Move(stepSize));
-        }
-
-        public void SetBoidsCount(int boids_count, int enemy_count)
-        {
-            if (boids_count < enemy_count)
-            {
-                return;
-            }
-
             var behaviours = new List<Behaviour.Behaviour>
             {
                 new FlockBehaviour(this),
                 new AlignBehaviour(this),
                 new AvoidBoidsBehaviour(this),
-                new ArriveBehaviour(this),
+                new AvoidEnemiesBehaviour(this),
                 new AvoidWallsBehaviour(this, _width, _height)
             };
 
             var rnd = new Random();
-            List<Boid> boid_list = Boids.ToList();
-            if (boid_list.Count < boids_count)
-            {
-                int add_count = boids_count - boid_list.Count;
-                for (int i = 0; i < add_count; i++)
-                {
-                    Boid new_boid = new Boid(
-                        (float)rnd.NextDouble() * _width,
-                        (float)rnd.NextDouble() * _height,
-                        (float)(rnd.NextDouble() - .5),
-                        (float)(rnd.NextDouble() - .5),
-                        (float)(1 + rnd.NextDouble()));
-                    boid_list.Add(new_boid);
 
-                    behaviours.ForEach(behaviour => new_boid.AddBehaviour(behaviour));
-                }
-            } else
+            for (int i = 0; i < enemies_inc; i++)
             {
-                while(boid_list.Count > boids_count)
-                {
-                    boid_list.RemoveAt(boid_list.Count - 1);
-                }
+                EnemyBoid new_boid = new EnemyBoid(
+                    (float)rnd.NextDouble() * _width,
+                    (float)rnd.NextDouble() * _height,
+                    (float)(rnd.NextDouble() - .5),
+                    (float)(rnd.NextDouble() - .5),
+                    (float)(0.5 + rnd.NextDouble()));
+                enemy_boids.Add(new_boid);
+
+                behaviours.ForEach(behaviour => new_boid.AddBehaviour(behaviour));
             }
+        }
 
-            for (int i = 0; i < boids_count; i++)
+        public void DecreaseBoidsCount(int boids_de)
+        {
+            int i = boids_de;
+            while (i-- > 0 && normal_boids.Count > 0)
             {
-                if (i < enemy_count && !boid_list[i].IsEnemy)
-                {
-                    boid_list[i].IsEnemy = true;
-                    boid_list[i].Speed -= .5f;
-                }
-
-                if (i >= enemy_count && boid_list[i].IsEnemy)
-                {
-                    boid_list[i].IsEnemy = false;
-                    boid_list[i].Speed += .5f;
-                }
+                normal_boids.RemoveAt(normal_boids.Count - 1);
             }
+        }
 
-            Boids = boid_list.ToArray();
+        public void DecreaseEnemiesCount(int enemies_de)
+        {
+            int i = enemies_de;
+            while (i-- > 0 && enemy_boids.Count > 0)
+            {
+                enemy_boids.RemoveAt(enemy_boids.Count - 1);
+            }
         }
     }
 }

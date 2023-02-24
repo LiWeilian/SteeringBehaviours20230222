@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SteeringBehavioursCore.Model.Interaction;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Field
 {
     public interface IField
     {
-        Boid[] Boids { get; }
+        IBoid[] Boids { get; }
         IFieldInteraction Interaction { get; }
         void SetFieldSize(float width, float height);
         void Advance(float stepSize = 1);

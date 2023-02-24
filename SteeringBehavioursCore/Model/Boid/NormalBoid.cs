@@ -1,21 +1,23 @@
 ﻿using System.Collections.Generic;
 
-namespace SteeringBehavioursCore.Model
+namespace SteeringBehavioursCore.Model.Boid
 {
-    public class Boid
+    public class NormalBoid : IBoid
     {
         private const int PositionsToRemember = 25;
         private readonly List<Behaviour.Behaviour> _behaviours;
-        public bool IsEnemy = false;
-        public Position Position;
-        public List<Position> Positions = new List<Position>();
-        public float Speed;
-        public Velocity Velocity;
 
-        public Boid(float x, float y, float xVel, float yVel, float speed)
+        public float Size { get; set; }
+        public Position Position { get; set; }
+        public List<Position> Positions { get; set; } = new List<Position>();
+        public float Speed { get; set; }
+        public Velocity Velocity { get; set; }
+
+        public NormalBoid(float x, float y, float xVel, float yVel, float speed)
         {
             Position = new Position(x, y);
             Velocity = new Velocity(xVel, yVel);
+            Size = 6.0f;
             Speed = speed;
             _behaviours = new List<Behaviour.Behaviour>();
         }
@@ -28,6 +30,7 @@ namespace SteeringBehavioursCore.Model
         public void Move(float stepSize)
         {
             _behaviours.ForEach(behaviour => behaviour.CalcVelocity(this));
+            //fixed speed
             Velocity.SetSpeed(Speed);
             Position.Move(Velocity, stepSize);
 

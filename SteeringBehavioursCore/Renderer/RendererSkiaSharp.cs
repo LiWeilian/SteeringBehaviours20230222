@@ -1,7 +1,9 @@
 ﻿using System;
+using SkiaSharp;
+
 using SteeringBehavioursCore.Model;
 using SteeringBehavioursCore.Model.Field;
-using SkiaSharp;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Renderer
 {
@@ -27,11 +29,15 @@ namespace SteeringBehavioursCore.Renderer
         {
             Clear(_backgroundColor);
             foreach (var boid in field.Boids)
-                if (boid.IsEnemy) DrawTailBoid(boid, _enemyColor);
-                else DrawTailBoid(boid, _boidColor);
+            {
+                if (boid is IEnemy)
+                    DrawTailBoid(boid, _enemyColor);
+                else
+                    DrawTailBoid(boid, _boidColor);
+            }                
         }
 
-        public void DrawBoid(Boid boid, Color color)
+        public void DrawBoid(NormalBoid boid, Color color)
         {
             FillCircle(new Point(boid.Position.X, boid.Position.Y), BoidRadius, color);
         }
@@ -58,19 +64,19 @@ namespace SteeringBehavioursCore.Renderer
             _canvas.DrawCircle(ConvertPoint(center), radius, _paint);
         }
 
-        public void DrawTriangle(Point center, float direction, float speed, float radius, Color color)
+        public void DrawTriangle(Point center, float direction, float speed, float size, Color color)
         {
             _paint.Color = ConvertColor(color);
-            Point p1 = new Point(center.X + radius * Math.Cos(direction / 180 * Math.PI) * 1.5, center.Y + radius * Math.Sin(direction / 180 * Math.PI) * 1.5);
-            Point p2 = new Point(center.X - radius * Math.Cos(direction / 180 * Math.PI) * 1.5, center.Y - radius * Math.Sin(direction / 180 * Math.PI) * 1.5);
+            Point p1 = new Point(center.X + size * Math.Cos(direction / 180 * Math.PI), center.Y + size * Math.Sin(direction / 180 * Math.PI));
+            Point p2 = new Point(center.X - size * Math.Cos(direction / 180 * Math.PI), center.Y - size * Math.Sin(direction / 180 * Math.PI));
             //速率越大，头部越尖
-            Point p3 = new Point(center.X - radius * Math.Sin(direction / 180 * Math.PI) * 3 * speed, center.Y + radius * Math.Cos(direction / 180 * Math.PI) * 3 * speed);
-            DrawLine(p1, p2, radius, color);
-            DrawLine(p1, p3, radius, color);
-            DrawLine(p2, p3, radius, color);
+            Point p3 = new Point(center.X - size * Math.Sin(direction / 180 * Math.PI) * 2 * speed, center.Y + size * Math.Cos(direction / 180 * Math.PI) * 2 * speed);
+            DrawLine(p1, p2, size, color);
+            DrawLine(p1, p3, size, color);
+            DrawLine(p2, p3, size, color);
         }
 
-        public void DrawTailBoid(Boid boid, Color color)
+        public void DrawTailBoid(IBoid boid, Color color)
         {
 
             for (var i = 0; i < boid.Positions.Count; i++)
@@ -84,7 +90,7 @@ namespace SteeringBehavioursCore.Renderer
 
             //FillCircle(new Point(boid.Position.X, boid.Position.Y), BoidRadius, color);
 
-            DrawTriangle(new Point(boid.Position.X, boid.Position.Y), boid.Velocity.GetAngle(), boid.Velocity.GetCurrentSpeed(), BoidRadius, color);
+            DrawTriangle(new Point(boid.Position.X, boid.Position.Y), boid.Velocity.GetAngle(), boid.Velocity.GetCurrentSpeed(), boid.Size, color);
         }
 
         private SKColor ConvertColor(Color color)

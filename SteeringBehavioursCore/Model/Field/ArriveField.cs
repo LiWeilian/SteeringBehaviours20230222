@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using SteeringBehavioursCore.Model.Behaviour;
 using SteeringBehavioursCore.Model.Interaction;
 using SteeringBehavioursCore.Model.Field;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Field
 {
     public class ArriveField : IField
     {
-        public Boid[] Boids { get; private set; }
+        public IBoid[] Boids { get; private set; }
         public IFieldInteraction Interaction { get; private set; }
         //public List<Behaviour.Behaviour> Behaviours { get; private set; }
 
@@ -22,7 +23,7 @@ namespace SteeringBehavioursCore.Model.Field
         {
             Interaction = new ArriveInteraction(this);
 
-            Boids = new Boid[boids_count];
+            Boids = new NormalBoid[boids_count];
 
             GenerateRandomBoids();
         }
@@ -54,7 +55,7 @@ namespace SteeringBehavioursCore.Model.Field
             var rnd = new Random();
             for (var i = 0; i < Boids.GetLength(0); i++)
             {
-                Boids[i] = new Boid(
+                Boids[i] = new NormalBoid(
                     (float)rnd.NextDouble() * _width,
                     (float)rnd.NextDouble() * _height,
                     (float)(rnd.NextDouble() - .5),

@@ -1,5 +1,6 @@
 ﻿using SteeringBehavioursCore.Model.Interaction;
 using SteeringBehavioursCore.Model.Field;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Behaviour
 {
@@ -11,7 +12,7 @@ namespace SteeringBehavioursCore.Model.Behaviour
 
         }
 
-        public override void CalcVelocity(Boid curBoid)
+        public override void CalcVelocity(IBoid curBoid)
         {
             if ((Field.Interaction as ArriveInteraction)?.ArrivePoint == null)
             {

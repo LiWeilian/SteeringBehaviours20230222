@@ -1,5 +1,6 @@
 ﻿using SteeringBehavioursCore.Model.Field;
 using SteeringBehavioursCore.Model.Field;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Behaviour
 {
@@ -11,9 +12,9 @@ namespace SteeringBehavioursCore.Model.Behaviour
         {
         }
 
-        public override void CalcVelocity(Boid curBoid)
+        public override void CalcVelocity(IBoid curBoid)
         {
-            var vision = curBoid.IsEnemy ? 2 * Vision : Vision;
+            var vision = curBoid is IEnemy ? 2 * Vision : Vision;
             var neighborCount = 0;
             var resultVelocity = new Velocity();
 

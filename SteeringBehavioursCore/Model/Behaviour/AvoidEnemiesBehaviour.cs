@@ -1,4 +1,5 @@
 ﻿using SteeringBehavioursCore.Model.Field;
+using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Behaviour
 {
@@ -10,10 +11,10 @@ namespace SteeringBehavioursCore.Model.Behaviour
         {
         }
 
-        public override void CalcVelocity(Boid curBoid)
+        public override void CalcVelocity(IBoid curBoid)
         {
             foreach (var boid in Boids)
-                if (boid.IsEnemy &&
+                if ((boid is IEnemy) &&
                     boid.Position.Distance(curBoid.Position) < Vision)
                     curBoid.Velocity -=
                         (boid.Position - curBoid.Position) * Weight;
