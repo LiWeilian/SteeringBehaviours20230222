@@ -101,6 +101,7 @@
     <Compile Include="Model\Behaviour\Behaviour.cs" />
     <Compile Include="Model\Behaviour\FlockBehaviour.cs" />
     <Compile Include="Model\Boid\NormalBoid.cs" />
+    <Compile Include="Model\Field\BaseField.cs" />
     <Compile Include="Model\Interaction\ArriveInteraction.cs" />
     <Compile Include="Model\Interaction\BaseInteraction.cs" />
     <Compile Include="Model\Field\FlockingBoidsField.cs" />

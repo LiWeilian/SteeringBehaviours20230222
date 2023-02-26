@@ -11,6 +11,7 @@ using System.Windows.Threading;
 using SkiaSharp.Views.Desktop;
 using SteeringBehavioursCore.Controller;
 using SteeringBehavioursCore.Renderer;
+using SteeringBehavioursCore.Model.Field;
 
 namespace FlockingBoidsDemo
 {
@@ -24,8 +25,7 @@ namespace FlockingBoidsDemo
 
             _controller = new FlockingBoidsController();
             _controller.CreateField();
-            _controller.Field.SetFieldSize((float)ResultField.Width,
-                (float)ResultField.Height);
+            _controller.Field.SetFieldSize(BaseField.Width, BaseField.Height);
 
             _timer.Interval = TimeSpan.FromMilliseconds(10);
             _timer.Tick += TimerTick;

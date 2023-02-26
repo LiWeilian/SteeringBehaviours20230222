@@ -11,16 +11,18 @@ using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Field
 {
-    public class ArriveField : IField
+    public class ArriveField : BaseField
     {
-        public IBoid[] Boids { get; private set; }
-        public IFieldInteraction Interaction { get; private set; }
-        //public List<Behaviour.Behaviour> Behaviours { get; private set; }
+        public override IBoid[] Boids { get; protected set; }
+        public override IFieldInteraction Interaction { get; protected set; }
 
-        private float _width = 1200f, _height = 600f;
+        private float _width, _height;
 
         public ArriveField(int boids_count)
         {
+            _width = Width;
+            _height = Height;
+
             Interaction = new ArriveInteraction(this);
 
             Boids = new NormalBoid[boids_count];
@@ -28,12 +30,12 @@ namespace SteeringBehavioursCore.Model.Field
             GenerateRandomBoids();
         }
 
-        public void Advance(float stepSize = 1)
+        public override void Advance(float stepSize = 1)
         {
             Parallel.ForEach(Boids, boid => boid.Move(stepSize));
         }
 
-        public void SetFieldSize(float width, float height)
+        public override void SetFieldSize(float width, float height)
         {
             if (width <= 0 || height <= 0)
                 throw new Exception(
@@ -48,8 +50,8 @@ namespace SteeringBehavioursCore.Model.Field
                 new FlockBehaviour(this),
                 new AlignBehaviour(this),
                 new AvoidBoidsBehaviour(this),
-                new ArriveBehaviour(this),
-                new AvoidWallsBehaviour(this, _width, _height)
+                new AvoidWallsBehaviour(this, _width, _height),
+                new ArriveBehaviour(this)
             };
 
             var rnd = new Random();

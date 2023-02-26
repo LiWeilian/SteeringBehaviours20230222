@@ -8,9 +8,9 @@ using SteeringBehavioursCore.Model.Boid;
 
 namespace SteeringBehavioursCore.Model.Field
 {
-    public class FlockingBoidsField : IField
+    public class FlockingBoidsField : BaseField
     {
-        public IBoid[] Boids
+        public override IBoid[] Boids
         {
             get
             {
@@ -21,15 +21,18 @@ namespace SteeringBehavioursCore.Model.Field
                 return boids.ToArray();
             }
         }
-        public IFieldInteraction Interaction { get; private set; } 
+        public override IFieldInteraction Interaction { get; protected set; } 
 
-        private float _width = 1200f, _height = 600f;
+        private float _width, _height;
 
         private List<NormalBoid> normal_boids = new List<NormalBoid>();
         private List<EnemyBoid> enemy_boids = new List<EnemyBoid>(); 
 
         public FlockingBoidsField(int boidsCount, int enemyCount)
         {
+            _width = Width;
+            _height = Height;
+
             Interaction = new FlockingBoidsInteraction(this);
 
             if (enemyCount > boidsCount)
@@ -38,7 +41,7 @@ namespace SteeringBehavioursCore.Model.Field
             GenerateRandomBoids(boidsCount, enemyCount);
         }
 
-        public void SetFieldSize(float width, float height)
+        public override void SetFieldSize(float width, float height)
         {
             if (width <= 0 || height <= 0)
                 throw new Exception(
@@ -52,7 +55,7 @@ namespace SteeringBehavioursCore.Model.Field
             this.IncreaseEnemiesCount(enemyCount);
         }
 
-        public void Advance(float stepSize = 1)
+        public override void Advance(float stepSize = 1)
         {
             Parallel.ForEach(Boids, boid => boid.Move(stepSize));
         }

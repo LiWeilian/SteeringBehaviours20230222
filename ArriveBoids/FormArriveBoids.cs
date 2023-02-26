@@ -27,8 +27,7 @@ namespace ArriveBoids
 
             _controller = new ArriveController();
             _controller.CreateField();
-            _controller.Field.SetFieldSize((float)ResultField.Width,
-                (float)ResultField.Height);
+            _controller.Field.SetFieldSize(BaseField.Width, BaseField.Height);
 
             _timer.Interval = TimeSpan.FromMilliseconds(10);
             _timer.Tick += TimerTick;
