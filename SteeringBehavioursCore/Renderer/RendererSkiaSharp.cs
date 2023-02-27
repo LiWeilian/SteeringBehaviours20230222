@@ -4,6 +4,7 @@ using SkiaSharp;
 using SteeringBehavioursCore.Model;
 using SteeringBehavioursCore.Model.Field;
 using SteeringBehavioursCore.Model.Boid;
+using SteeringBehavioursCore.Model.Behaviour;
 
 namespace SteeringBehavioursCore.Renderer
 {
@@ -57,14 +58,13 @@ namespace SteeringBehavioursCore.Renderer
 
         public void DrawWall()
         {
-            Point pt1 = new Point(Model.Behaviour.AvoidWallsBehaviour.WallPad, 
-                Model.Behaviour.AvoidWallsBehaviour.WallPad);
-            Point pt2 = new Point(Model.Behaviour.AvoidWallsBehaviour.WallPad, 
-                BaseField.Height - Model.Behaviour.AvoidWallsBehaviour.WallPad);
-            Point pt3 = new Point(BaseField.Width - Model.Behaviour.AvoidWallsBehaviour.WallPad,
-                BaseField.Height - Model.Behaviour.AvoidWallsBehaviour.WallPad);
-            Point pt4 = new Point(BaseField.Width - Model.Behaviour.AvoidWallsBehaviour.WallPad,
-                Model.Behaviour.AvoidWallsBehaviour.WallPad);
+            Point pt1 = new Point(AvoidWallsBehaviour.WallPad, AvoidWallsBehaviour.WallPad);
+            Point pt2 = new Point(AvoidWallsBehaviour.WallPad, 
+                BaseField.Height - AvoidWallsBehaviour.WallPad);
+            Point pt3 = new Point(BaseField.Width - AvoidWallsBehaviour.WallPad,
+                BaseField.Height - AvoidWallsBehaviour.WallPad);
+            Point pt4 = new Point(BaseField.Width - AvoidWallsBehaviour.WallPad,
+                AvoidWallsBehaviour.WallPad);
             DrawLine(pt1, pt2, 2, _wallColor);
             DrawLine(pt2, pt3, 2, _wallColor);
             DrawLine(pt3, pt4, 2, _wallColor);
