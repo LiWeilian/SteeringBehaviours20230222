@@ -13,11 +13,6 @@ namespace SteeringBehavioursCore.Model.Field
 {
     public class ArriveField : BaseField
     {
-        public override IBoid[] Boids { get; protected set; }
-        public override IFieldInteraction Interaction { get; protected set; }
-
-        private float _width, _height;
-
         public ArriveField(int boids_count)
         {
             _width = Width;
@@ -28,19 +23,6 @@ namespace SteeringBehavioursCore.Model.Field
             Boids = new NormalBoid[boids_count];
 
             GenerateRandomBoids();
-        }
-
-        public override void Advance(float stepSize = 1)
-        {
-            Parallel.ForEach(Boids, boid => boid.Move(stepSize));
-        }
-
-        public override void SetFieldSize(float width, float height)
-        {
-            if (width <= 0 || height <= 0)
-                throw new Exception(
-                    "Wrong size of field");
-            (_width, _height) = (width, height);
         }
 
         private void GenerateRandomBoids()

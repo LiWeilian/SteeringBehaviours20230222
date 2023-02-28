@@ -41,7 +41,7 @@ namespace FlockingBoidsDemo
         private void SKElement_PaintSurface(object sender,
             SKPaintSurfaceEventArgs e)
         {
-            _controller.CreateRenderer(new RendererSkiaSharp(e.Surface.Canvas));
+            _controller.CreateRenderer(new FlockingBoidRenderer(e.Surface.Canvas));
             _controller.Renderer.Render(_controller.Field);
         }
 

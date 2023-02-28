@@ -8,15 +8,15 @@ using SteeringBehavioursCore.Model.Behaviour;
 
 namespace SteeringBehavioursCore.Renderer
 {
-    public class RendererSkiaSharp : IRenderer
+    public abstract class RendererSkiaSharp : BaseRenderer
     {
-        private const float BoidRadius = 4f;
-        private readonly Color _backgroundColor = new Color(0, 0, 50);
-        private readonly Color _wallColor = new Color(255, 255, 255);
-        private readonly Color _boidColor = new Color(250, 250, 227);
-        private readonly Color _enemyColor = new Color(247, 175, 49);
-        private readonly SKCanvas _canvas;
-        private readonly SKPaint _paint;
+        protected const float BoidRadius = 4f;
+        protected readonly Color _backgroundColor = new Color(0, 0, 50);
+        protected readonly Color _wallColor = new Color(255, 255, 255);
+        protected readonly Color _boidColor = new Color(250, 250, 227);
+        protected readonly Color _enemyColor = new Color(247, 175, 49);
+        protected readonly SKCanvas _canvas;
+        protected readonly SKPaint _paint;
 
         public RendererSkiaSharp(SKCanvas canvas)
         {
@@ -27,26 +27,12 @@ namespace SteeringBehavioursCore.Renderer
             };
         }
 
-        public void Render(IField field)
+        public override void Render(IField field)
         {
             Clear(_backgroundColor);
-            DrawField();
-            DrawWall();
-            foreach (var boid in field.Boids)
-            {
-                if (boid is IEnemy)
-                    DrawTailBoid(boid, _enemyColor);
-                else
-                    DrawTailBoid(boid, _boidColor);
-            }
         }
 
-        public void DrawBoid(NormalBoid boid, Color color)
-        {
-            FillCircle(new Point(boid.Position.X, boid.Position.Y), BoidRadius, color);
-        }
-
-        public void Clear(Color color)
+        protected void Clear(Color color)
         {
             _canvas.Clear(ConvertColor(color));
         }
@@ -56,7 +42,7 @@ namespace SteeringBehavioursCore.Renderer
             _paint.Dispose();
         }
 
-        public void DrawWall()
+        protected void DrawWall()
         {
             Point pt1 = new Point(AvoidWallsBehaviour.WallPad, AvoidWallsBehaviour.WallPad);
             Point pt2 = new Point(AvoidWallsBehaviour.WallPad, 
@@ -71,7 +57,7 @@ namespace SteeringBehavioursCore.Renderer
             DrawLine(pt4, pt1, 2, _wallColor);
         }
 
-        public void DrawField()
+        protected void DrawField()
         {
             Point pt1 = new Point(0, 0);
             Point pt2 = new Point(0, BaseField.Height);
@@ -83,19 +69,26 @@ namespace SteeringBehavioursCore.Renderer
             DrawLine(pt4, pt1, 2, _wallColor);
         }
 
-        public void DrawLine(Point pt1, Point pt2, float lineWidth, Color color)
+        protected void DrawText(string text, float x, float y, Color color)
+        {
+            _paint.Color = ConvertColor(color);
+            SKTextBlob textBlob = SKTextBlob.Create(text, new SKFont());
+            _canvas.DrawText(textBlob, x, y, _paint);
+        }
+
+        protected void DrawLine(Point pt1, Point pt2, float lineWidth, Color color)
         {
             _paint.Color = ConvertColor(color);
             _canvas.DrawLine(ConvertPoint(pt1), ConvertPoint(pt2), _paint);
         }
 
-        public void FillCircle(Point center, float radius, Color color)
+        protected void FillCircle(Point center, float radius, Color color)
         {
             _paint.Color = ConvertColor(color);
             _canvas.DrawCircle(ConvertPoint(center), radius, _paint);
         }
 
-        public void DrawTriangle(Point center, float direction, float speed, float size, Color color)
+        protected void DrawTriangle(Point center, float direction, float speed, float size, Color color)
         {
             _paint.Color = ConvertColor(color);
             Point p1 = new Point(center.X + size * Math.Cos(direction / 180 * Math.PI), center.Y + size * Math.Sin(direction / 180 * Math.PI));
@@ -107,7 +100,7 @@ namespace SteeringBehavioursCore.Renderer
             DrawLine(p2, p3, size, color);
         }
 
-        public void DrawTailBoid(IBoid boid, Color color)
+        protected void DrawTailBoid(IBoid boid, Color color)
         {
 
             for (var i = 0; i < boid.Positions.Count; i++)
@@ -118,18 +111,18 @@ namespace SteeringBehavioursCore.Renderer
                     BoidRadius / 2.5f,
                     new Color(color.R, color.G, color.B, alpha));
             }
-
+            
             //FillCircle(new Point(boid.Position.X, boid.Position.Y), BoidRadius, color);
 
             DrawTriangle(new Point(boid.Position.X, boid.Position.Y), boid.Velocity.GetAngle(), boid.Velocity.GetCurrentSpeed(), boid.Size, color);
         }
 
-        private SKColor ConvertColor(Color color)
+        protected SKColor ConvertColor(Color color)
         {
             return new SKColor(color.R, color.G, color.B, color.A);
         }
 
-        private SKPoint ConvertPoint(Point pt)
+        protected SKPoint ConvertPoint(Point pt)
         {
             return new SKPoint((float)pt.X, (float)pt.Y);
         }

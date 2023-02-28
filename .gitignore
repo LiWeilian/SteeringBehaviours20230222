@@ -5,5 +5,7 @@ FlockingBoidsDemo/bin/
 FlockingBoidsDemo/obj/
 ArriveBoids/bin/
 ArriveBoids/obj/
+PathFollowingBoids/bin/
+PathFollowingBoids/obj/
 *.lock
 *.ide

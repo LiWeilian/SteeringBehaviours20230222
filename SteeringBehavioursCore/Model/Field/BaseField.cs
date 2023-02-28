@@ -16,14 +16,19 @@ namespace SteeringBehavioursCore.Model.Field
 
         public virtual IFieldInteraction Interaction { get; protected set; }
 
+        protected float _width, _height;
+
         public virtual void Advance(float stepSize = 1)
         {
-            throw new NotImplementedException();
+            Parallel.ForEach(Boids, boid => boid.Move(stepSize));
         }
 
         public virtual void SetFieldSize(float width, float height)
         {
-            throw new NotImplementedException();
+            if (width <= 0 || height <= 0)
+                throw new Exception(
+                    "Wrong size of field");
+            (_width, _height) = (width, height);
         }
     }
 }

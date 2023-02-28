@@ -21,9 +21,6 @@ namespace SteeringBehavioursCore.Model.Field
                 return boids.ToArray();
             }
         }
-        public override IFieldInteraction Interaction { get; protected set; } 
-
-        private float _width, _height;
 
         private List<NormalBoid> normal_boids = new List<NormalBoid>();
         private List<EnemyBoid> enemy_boids = new List<EnemyBoid>(); 
@@ -40,24 +37,10 @@ namespace SteeringBehavioursCore.Model.Field
                     "Number of enemies is bigger than number of boids");
             GenerateRandomBoids(boidsCount, enemyCount);
         }
-
-        public override void SetFieldSize(float width, float height)
-        {
-            if (width <= 0 || height <= 0)
-                throw new Exception(
-                    "Wrong size of field");
-            (_width, _height) = (width, height);
-        }
-
         private void GenerateRandomBoids(int boidsCount, int enemyCount)
         {
             this.IncreaseBoidsCount(boidsCount);
             this.IncreaseEnemiesCount(enemyCount);
-        }
-
-        public override void Advance(float stepSize = 1)
-        {
-            Parallel.ForEach(Boids, boid => boid.Move(stepSize));
         }
 
         public void IncreaseBoidsCount(int boids_inc)

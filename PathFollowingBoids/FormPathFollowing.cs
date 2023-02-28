@@ -10,22 +10,20 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using SkiaSharp.Views.Desktop;
 using SteeringBehavioursCore.Controller;
-using SteeringBehavioursCore.Model;
-using SteeringBehavioursCore.Model.Behaviour;
 using SteeringBehavioursCore.Renderer;
 using SteeringBehavioursCore.Model.Field;
 
-namespace ArriveBoids
+namespace PathFollowingBoids
 {
-    public partial class FormArriveBoids : System.Windows.Forms.Form
+    public partial class FormPathFollowing : Form
     {
-        private readonly ArriveController _controller;
+        private readonly PathFollowingController _controller;
         private readonly DispatcherTimer _timer = new DispatcherTimer();
-        public FormArriveBoids()
+        public FormPathFollowing()
         {
             InitializeComponent();
 
-            _controller = new ArriveController();
+            _controller = new PathFollowingController();
             _controller.CreateField();
             _controller.Field.SetFieldSize(BaseField.Width, BaseField.Height);
 
@@ -42,13 +40,8 @@ namespace ArriveBoids
         private void SKElement_PaintSurface(object sender,
             SKPaintSurfaceEventArgs e)
         {
-            _controller.CreateRenderer(new ArriveRenderer(e.Surface.Canvas));
+            _controller.CreateRenderer(new PathFollowingRenderer(e.Surface.Canvas));
             _controller.Renderer.Render(_controller.Field);
-        }
-
-        private void ResultField_MouseDown(object sender, MouseEventArgs e)
-        {
-            _controller.Field.Interaction.OnMouseDown((int)e.Button, e.X, e.Y);
         }
     }
 }

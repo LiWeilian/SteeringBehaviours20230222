@@ -18,10 +18,7 @@ namespace SteeringBehavioursCore.Model.Behaviour
             {
                 return;
             }
-            foreach (var boid in Boids)
-            {
-                curBoid.Velocity += ((Field.Interaction as ArriveInteraction).ArrivePoint - curBoid.Position) * Weight;
-            }
+            curBoid.Velocity += ((Field.Interaction as ArriveInteraction).ArrivePoint - curBoid.Position) * Weight;
         }
     }
 }
