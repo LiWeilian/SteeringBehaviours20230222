@@ -36,19 +36,22 @@ namespace AvoidObstacleBoids
             // 
             this.ResultField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ResultField.Location = new System.Drawing.Point(0, 0);
+            this.ResultField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ResultField.Name = "ResultField";
-            this.ResultField.Size = new System.Drawing.Size(1582, 753);
+            this.ResultField.Size = new System.Drawing.Size(1780, 904);
             this.ResultField.TabIndex = 3;
             this.ResultField.Text = "skControl1";
             this.ResultField.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs>(this.SKElement_PaintSurface);
             // 
             // FormAvoidObstacle
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1582, 753);
+            this.ClientSize = new System.Drawing.Size(1780, 904);
             this.Controls.Add(this.ResultField);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormAvoidObstacle";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Avoid Obstacle";
             this.ResumeLayout(false);
 

@@ -79,12 +79,11 @@ namespace SteeringBehavioursCore.Model.Field
 
         public Obstacle()
         {
-            Random rnd = new Random();
+            Random rnd = new Random((int)DateTime.Now.Ticks);
+            Thread.Sleep(10);
 
-            Thread.Sleep(3);
-
-            float x = (float)(200 + 800 * rnd.NextDouble());
-            float y = (float)(200 + 200 * rnd.NextDouble());
+            float x = (float)(100 + 800 * rnd.NextDouble());
+            float y = (float)(100 + 200 * rnd.NextDouble());
 
             float width = (float)(50 + 100 * rnd.NextDouble());
             float height = (float)(50 + 100 * rnd.NextDouble());
