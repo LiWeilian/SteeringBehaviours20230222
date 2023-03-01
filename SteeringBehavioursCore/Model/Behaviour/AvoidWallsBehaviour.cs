@@ -24,25 +24,36 @@ namespace SteeringBehavioursCore.Model.Behaviour
         {
             var resultVelocity = new Velocity();
 
-            //Arrow Position
-            float x = (float)(curBoid.Position.X - curBoid.Size * Math.Sin(curBoid.Velocity.GetAngle() / 180 * Math.PI) * 2 * curBoid.Velocity.GetCurrentSpeed());
-            float y = (float)(curBoid.Position.Y + curBoid.Size * Math.Cos(curBoid.Velocity.GetAngle() / 180 * Math.PI) * 2 * curBoid.Velocity.GetCurrentSpeed());
+            float x = curBoid.Position.X;
+            float y = curBoid.Position.Y;
 
-            if (x < Pad) resultVelocity.X += Turn;
-            if (y < Pad) resultVelocity.Y += Turn;
+
+            #region 碰撞时逐渐减速，然后反方向逐渐加速，但是方向调整后前端已脱离墙体，导致不能充分加速
+            if (x < Pad)
+                resultVelocity.X += Turn;
+            if (y < Pad)
+                resultVelocity.Y += Turn;
             if (x > _width - Pad)
                 resultVelocity.X -= Turn;
             if (y > _height - Pad)
                 resultVelocity.Y -= Turn;
 
-            //if (curBoid.Position.X < Pad) resultVelocity.X += Turn;
-            //if (curBoid.Position.Y < Pad) resultVelocity.Y += Turn;
-            //if (curBoid.Position.X > _width - Pad)
-            //    resultVelocity.X -= Turn;
-            //if (curBoid.Position.Y > _height - Pad)
-            //    resultVelocity.Y -= Turn;
-
             curBoid.Velocity += resultVelocity * Weight;
+            #endregion
+
+            #region 直接反弹
+            //float size = curBoid.Size;
+            //float angle = curBoid.Velocity.GetAngle();
+            //float speed = curBoid.Velocity.GetCurrentSpeed();
+
+            ////Arrow Position
+            //x = (float)(x - size * Math.Sin(angle / 180 * Math.PI) * 2 * speed);
+            //y = (float)(y + size * Math.Cos(angle / 180 * Math.PI) * 2 * speed);
+            //if (x < Pad || x > _width - Pad)
+            //    curBoid.Velocity.X *= -1;
+            //if (y < Pad || y > _height - Pad)
+            //    curBoid.Velocity.Y *= -1;
+            #endregion
         }
     }
 }

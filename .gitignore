@@ -1,11 +1,15 @@
 SteeringBehavioursCore/bin/
 SteeringBehavioursCore/obj/
-packages/
 FlockingBoidsDemo/bin/
 FlockingBoidsDemo/obj/
 ArriveBoids/bin/
 ArriveBoids/obj/
 PathFollowingBoids/bin/
 PathFollowingBoids/obj/
+WanderingBoids/bin/
+WanderingBoids/obj/
+AvoidObstacleBoids/bin/
+AvoidObstacleBoids/obj/
+packages/
 *.lock
 *.ide

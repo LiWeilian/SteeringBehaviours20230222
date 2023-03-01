@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArriveBoids", "ArriveBoids\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathFollowingBoids", "PathFollowingBoids\PathFollowingBoids.csproj", "{D32D1438-BA66-4169-AED1-B953AFD03219}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WanderingBoids", "WanderingBoids\WanderingBoids.csproj", "{F33426E3-26A7-44AD-8B1A-EFD87A9D9D1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoidObstacleBoids", "AvoidObstacleBoids\AvoidObstacleBoids.csproj", "{C2401986-5FAF-4742-9C9A-0E331AB24417}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{D32D1438-BA66-4169-AED1-B953AFD03219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D32D1438-BA66-4169-AED1-B953AFD03219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D32D1438-BA66-4169-AED1-B953AFD03219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33426E3-26A7-44AD-8B1A-EFD87A9D9D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33426E3-26A7-44AD-8B1A-EFD87A9D9D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33426E3-26A7-44AD-8B1A-EFD87A9D9D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33426E3-26A7-44AD-8B1A-EFD87A9D9D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2401986-5FAF-4742-9C9A-0E331AB24417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2401986-5FAF-4742-9C9A-0E331AB24417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2401986-5FAF-4742-9C9A-0E331AB24417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2401986-5FAF-4742-9C9A-0E331AB24417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
