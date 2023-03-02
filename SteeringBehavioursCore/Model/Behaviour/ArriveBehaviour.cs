@@ -1,6 +1,7 @@
 ﻿using SteeringBehavioursCore.Model.Interaction;
 using SteeringBehavioursCore.Model.Field;
 using SteeringBehavioursCore.Model.Boid;
+using System;
 
 namespace SteeringBehavioursCore.Model.Behaviour
 {
@@ -18,7 +19,16 @@ namespace SteeringBehavioursCore.Model.Behaviour
             {
                 return;
             }
-            curBoid.Velocity += ((Field.Interaction as ArriveInteraction).ArrivePoint - curBoid.Position) * Weight;
+            Position arrivePos = (Field.Interaction as ArriveInteraction).ArrivePoint;
+            float distance = curBoid.Position.Distance(arrivePos);
+            if (distance > Vision)
+            {
+                curBoid.Velocity += (arrivePos - curBoid.Position) * Weight;
+            } else
+            {
+                //decelerate to zero
+                curBoid.Velocity.SetSpeed(distance/Vision * curBoid.Speed);
+            }
         }
     }
 }

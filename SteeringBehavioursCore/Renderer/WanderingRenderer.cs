@@ -21,7 +21,7 @@ namespace SteeringBehavioursCore.Renderer
             DrawWall();
             foreach (var boid in field.Boids)
             {
-                DrawTailBoid(boid, _boidColor);
+                DrawTailBoid(boid, _boidColor, field.BoidDisplayBySpeed);
             }
         }
     }

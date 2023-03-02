@@ -4,30 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SkiaSharp;
+using SteeringBehavioursCore.Model.Boid;
 using SteeringBehavioursCore.Model.Field;
 
 namespace SteeringBehavioursCore.Renderer
 {
-    public class AvoidObstacleRenderer : RendererSkiaSharp
+    public class HiddenRenderer : RendererSkiaSharp
     {
-        public AvoidObstacleRenderer(SKCanvas canvas) : base(canvas)
+        public HiddenRenderer(SKCanvas canvas) : base(canvas)
         {
         }
-
         public override void Render(IField field)
         {
             base.Render(field);
 
             DrawField();
             DrawWall();
-            this.DrawObstacles(field as AvoidObstacleField);
+            this.DrawObstacles(field as HiddenField);
             foreach (var boid in field.Boids)
             {
-                DrawTailBoid(boid, _boidColor, field.BoidDisplayBySpeed);
+                if (boid is IEnemy)
+                {
+                    DrawTailBoid(boid, _enemyColor, field.BoidDisplayBySpeed);
+                } else
+                {
+                    DrawTailBoid(boid, _boidColor, field.BoidDisplayBySpeed);
+                }
             }
         }
 
-        private void DrawObstacles(AvoidObstacleField field)
+        private void DrawObstacles(HiddenField field)
         {
             float lineWidth = 2f;
             Color color = new Color(247, 175, 49);

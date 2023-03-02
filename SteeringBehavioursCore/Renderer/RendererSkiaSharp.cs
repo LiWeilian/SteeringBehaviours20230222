@@ -100,7 +100,7 @@ namespace SteeringBehavioursCore.Renderer
             DrawLine(p2, p3, size, color);
         }
 
-        protected void DrawTailBoid(IBoid boid, Color color)
+        protected void DrawTailBoid(IBoid boid, Color color, bool boidDispBySpeed = true)
         {
 
             for (var i = 0; i < boid.Positions.Count; i++)
@@ -111,10 +111,15 @@ namespace SteeringBehavioursCore.Renderer
                     BoidRadius / 2.5f,
                     new Color(color.R, color.G, color.B, alpha));
             }
-            
-            //FillCircle(new Point(boid.Position.X, boid.Position.Y), BoidRadius, color);
 
-            DrawTriangle(new Point(boid.Position.X, boid.Position.Y), boid.Velocity.GetAngle(), boid.Velocity.GetCurrentSpeed(), boid.Size, color);
+            //FillCircle(new Point(boid.Position.X, boid.Position.Y), BoidRadius, color);
+            if (boidDispBySpeed)
+            {
+                DrawTriangle(new Point(boid.Position.X, boid.Position.Y), boid.Velocity.GetAngle(), boid.Velocity.GetCurrentSpeed(), boid.Size, color);
+            } else
+            {
+                DrawTriangle(new Point(boid.Position.X, boid.Position.Y), boid.Velocity.GetAngle(), 1.5f, boid.Size, color);
+            }
         }
 
         protected SKColor ConvertColor(Color color)

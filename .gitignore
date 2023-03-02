@@ -10,6 +10,8 @@ WanderingBoids/bin/
 WanderingBoids/obj/
 AvoidObstacleBoids/bin/
 AvoidObstacleBoids/obj/
+HiddenBoids/bin/
+HiddenBoids/obj/
 packages/
 *.lock
 *.ide

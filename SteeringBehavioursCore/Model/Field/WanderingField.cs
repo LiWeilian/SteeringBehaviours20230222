@@ -38,12 +38,14 @@ namespace SteeringBehavioursCore.Model.Field
             var rnd = new Random();
             for (var i = 0; i < Boids.GetLength(0); i++)
             {
+                float speed = (float)(1 + rnd.NextDouble());
                 Boids[i] = new NormalBoid(
                     (float)rnd.NextDouble() * _width,
                     (float)rnd.NextDouble() * _height,
                     (float)(rnd.NextDouble() - .5),
                     (float)(rnd.NextDouble() - .5),
-                    (float)(1 + rnd.NextDouble()));
+                    speed,
+                    speed);
 
                 behaviours.ForEach(
                     behaviour => Boids[i].AddBehaviour(behaviour));

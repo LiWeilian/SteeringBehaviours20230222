@@ -17,7 +17,7 @@ namespace SteeringBehavioursCore.Model.Behaviour
 
         public override void CalcVelocity(IBoid curBoid)
         {
-            AvoidObstacleField field = Field as AvoidObstacleField;
+            IObstacleField field = Field as IObstacleField;
             if (field == null)
             {
                 return;
@@ -44,14 +44,7 @@ namespace SteeringBehavioursCore.Model.Behaviour
 
         private bool DetectObstacle(float x, float y, float x2, float y2, Obstacle obstacle)
         {
-            return Geometry.SegmentIntersectRectangle(obstacle.Points[0].X, 
-                obstacle.Points[0].Y,
-                obstacle.Points[2].X,
-                obstacle.Points[2].Y,
-                x,
-                y,
-                x2,
-                y2);
+            return obstacle.Detected(x, y, x2, y2); ;
         }
     }
 }

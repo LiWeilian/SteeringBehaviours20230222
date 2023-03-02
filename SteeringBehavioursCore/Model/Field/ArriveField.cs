@@ -13,14 +13,17 @@ namespace SteeringBehavioursCore.Model.Field
 {
     public class ArriveField : BaseField
     {
-        public ArriveField(int boids_count)
+        private const int boidsCount = 5;
+        public ArriveField()
         {
             _width = Width;
             _height = Height;
 
+            BoidDisplayBySpeed = false;
+
             Interaction = new ArriveInteraction(this);
 
-            Boids = new NormalBoid[boids_count];
+            Boids = new NormalBoid[boidsCount];
 
             GenerateRandomBoids();
         }
@@ -29,9 +32,9 @@ namespace SteeringBehavioursCore.Model.Field
         {
             var behaviours = new List<Behaviour.Behaviour>
             {
-                new FlockBehaviour(this),
-                new AlignBehaviour(this),
-                new AvoidBoidsBehaviour(this),
+                //new FlockBehaviour(this),
+                //new AlignBehaviour(this),
+                //new AvoidBoidsBehaviour(this),
                 new AvoidWallsBehaviour(this, _width, _height),
                 new ArriveBehaviour(this)
             };
@@ -44,7 +47,8 @@ namespace SteeringBehavioursCore.Model.Field
                     (float)rnd.NextDouble() * _height,
                     (float)(rnd.NextDouble() - .5),
                     (float)(rnd.NextDouble() - .5),
-                    (float)(1 + rnd.NextDouble()));
+                    (float)(1 + rnd.NextDouble()),
+                    0f);
 
                 behaviours.ForEach(
                     behaviour => Boids[i].AddBehaviour(behaviour));

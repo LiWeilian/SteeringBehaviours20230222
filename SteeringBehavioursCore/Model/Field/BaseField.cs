@@ -13,6 +13,7 @@ namespace SteeringBehavioursCore.Model.Field
         public static float Width { get { return 1200f; } }
         public static float Height { get { return 600f; } }
         public virtual IBoid[] Boids { get; protected set; }
+        public bool BoidDisplayBySpeed { get; protected set; } = true;
 
         public virtual IFieldInteraction Interaction { get; protected set; }
 

@@ -12,6 +12,7 @@ namespace SteeringBehavioursCore.Model.Field
     public interface IField
     {
         IBoid[] Boids { get; }
+        bool BoidDisplayBySpeed { get; }
         IFieldInteraction Interaction { get; }
         void SetFieldSize(float width, float height);
         void Advance(float stepSize = 1);

@@ -25,9 +25,9 @@ namespace SteeringBehavioursCore.Renderer
             foreach (var boid in field.Boids)
             {
                 if (boid is IEnemy)
-                    DrawTailBoid(boid, _enemyColor);
+                    DrawTailBoid(boid, _enemyColor, field.BoidDisplayBySpeed);
                 else
-                    DrawTailBoid(boid, _boidColor);
+                    DrawTailBoid(boid, _boidColor, field.BoidDisplayBySpeed);
             }
         }
 

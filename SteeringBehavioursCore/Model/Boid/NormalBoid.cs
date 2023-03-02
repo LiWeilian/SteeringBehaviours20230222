@@ -13,12 +13,15 @@ namespace SteeringBehavioursCore.Model.Boid
         public float Speed { get; set; }
         public Velocity Velocity { get; set; }
 
-        public NormalBoid(float x, float y, float xVel, float yVel, float speed)
+        private float _minSpeed;
+
+        public NormalBoid(float x, float y, float xVel, float yVel, float speed, float minSpeed = 0.1f)
         {
             Position = new Position(x, y);
             Velocity = new Velocity(xVel, yVel);
             Size = 6.0f;
             Speed = speed;
+            _minSpeed = minSpeed;
             _behaviours = new List<Behaviour.Behaviour>();
         }
 
@@ -31,7 +34,15 @@ namespace SteeringBehavioursCore.Model.Boid
         {
             _behaviours.ForEach(behaviour => behaviour.CalcVelocity(this));
             //fixed speed
-            Velocity.SetSpeed(Speed);
+            float currentSpeed = Velocity.GetCurrentSpeed();
+            if (currentSpeed > Speed)
+            {
+                Velocity.SetSpeed(Speed);
+            }
+            else if (currentSpeed < _minSpeed)
+            {
+                Velocity.SetSpeed(_minSpeed);
+            }
             Position.Move(Velocity, stepSize);
 
             Positions.Add(new Position(Position));

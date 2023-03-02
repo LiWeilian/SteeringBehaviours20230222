@@ -8,7 +8,8 @@ namespace SteeringBehavioursCore.Model.Boid
 {
     public class EnemyBoid : NormalBoid, IEnemy
     {
-        public EnemyBoid(float x, float y, float xVel, float yVel, float speed) : base(x, y, xVel, yVel, speed)
+        public EnemyBoid(float x, float y, float xVel, float yVel, float speed, float minSpeed = 0.1f) 
+            : base(x, y, xVel, yVel, speed, minSpeed)
         {
         }
     }
