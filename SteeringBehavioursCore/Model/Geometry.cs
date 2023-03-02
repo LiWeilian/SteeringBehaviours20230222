@@ -83,5 +83,37 @@ namespace SteeringBehavioursCore.Model
 
             return true;
         }
+
+        public static bool PointIntersectRetangle(
+            float rectangleMinX,
+            float rectangleMinY,
+            float rectangleMaxX,
+            float rectangleMaxY,
+            float pX,
+            float pY)
+        {
+            return pX >= rectangleMinX && pX <= rectangleMaxX
+                && pY >= rectangleMinY && pY <= rectangleMaxY;
+        }
+
+        public static bool RectangleIntersectRectangle(
+            float rect1MinX,
+            float rect1MinY,
+            float rect1MaxX,
+            float rect1MaxY,
+            float rect2MinX,
+            float rect2MinY,
+            float rect2MaxX,
+            float rect2MaxY)
+        {
+            return PointIntersectRetangle(rect1MinX, rect1MinY, rect1MaxX, rect1MaxY, rect2MinX, rect2MinY)
+                || PointIntersectRetangle(rect1MinX, rect1MinY, rect1MaxX, rect1MaxY, rect2MinX, rect2MaxY)
+                || PointIntersectRetangle(rect1MinX, rect1MinY, rect1MaxX, rect1MaxY, rect2MaxX, rect2MinY)
+                || PointIntersectRetangle(rect1MinX, rect1MinY, rect1MaxX, rect1MaxY, rect2MaxX, rect2MaxY)
+                || PointIntersectRetangle(rect2MinX, rect2MinY, rect2MaxX, rect2MaxY, rect1MinX, rect1MinY)
+                || PointIntersectRetangle(rect2MinX, rect2MinY, rect2MaxX, rect2MaxY, rect1MinX, rect1MaxY)
+                || PointIntersectRetangle(rect2MinX, rect2MinY, rect2MaxX, rect2MaxY, rect1MaxX, rect1MinY)
+                || PointIntersectRetangle(rect2MinX, rect2MinY, rect2MaxX, rect2MaxY, rect1MaxX, rect1MaxY);
+        }
     }
 }

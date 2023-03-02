@@ -34,10 +34,41 @@ namespace SteeringBehavioursCore.Model.Field
 
         private void GenerateObstacles()
         {
-            Random rnd = new Random();
+            Random rnd = new Random((int)DateTime.Now.Ticks);
             for (int i = 0; i < _obstacleCount; i++)
             {
-                Obstacles.Add(new Obstacle());
+                float minX;
+                float minY;
+                float maxX;
+                float maxY;
+                while (true)
+                {
+                    Thread.Sleep(10);
+
+                    minX = (float)(100 + 800 * rnd.NextDouble());
+                    minY = (float)(100 + 200 * rnd.NextDouble());
+
+                    float width = (float)(50 + 100 * rnd.NextDouble());
+                    float height = (float)(50 + 100 * rnd.NextDouble());
+
+                    maxX = minX + width;
+                    maxY = minY + height;
+
+                    bool detected = false;
+                    foreach (Obstacle obstacle in Obstacles)
+                    {
+                        detected = obstacle.RectangleDetected(minX, minY, maxX, maxY);
+                        if (detected)
+                        {
+                            break;
+                        }
+                    }
+                    if (!detected)
+                    {
+                        break;
+                    }
+                }
+                Obstacles.Add(new Obstacle(minX, minY, maxX, maxY));
             }
         }
 

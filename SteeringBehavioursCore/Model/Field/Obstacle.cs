@@ -35,7 +35,15 @@ namespace SteeringBehavioursCore.Model.Field
             Points.Add(new Position(x + width, y));
         }
 
-        public bool Detected(float x, float y, float x2, float y2)
+        public Obstacle(float minX, float minY, float maxX, float maxY)
+        {
+            Points.Add(new Position(minX, minY));
+            Points.Add(new Position(minX, maxY));
+            Points.Add(new Position(maxX, maxY));
+            Points.Add(new Position(maxX, minY));
+        }
+
+        public bool LineDetected(float x, float y, float x2, float y2)
         {
             return Geometry.SegmentIntersectRectangle(Points[0].X,
                 Points[0].Y,
@@ -45,6 +53,27 @@ namespace SteeringBehavioursCore.Model.Field
                 y,
                 x2,
                 y2);
+        }
+
+        public bool PointDetected(float x, float y)
+        {
+            return Geometry.PointIntersectRetangle(Points[0].X,
+                Points[0].Y,
+                Points[2].X,
+                Points[2].Y,
+                x, y);
+        }
+
+        public bool RectangleDetected(float minX, float minY, float maxX, float maxY)
+        {
+            return Geometry.RectangleIntersectRectangle(Points[0].X,
+                Points[0].Y,
+                Points[2].X,
+                Points[2].Y,
+                minX,
+                minY,
+                maxX,
+                maxY);
         }
 
         public Position HiddenPosition { get; private set; }
