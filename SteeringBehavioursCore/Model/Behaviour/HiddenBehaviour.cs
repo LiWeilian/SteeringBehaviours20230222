@@ -51,7 +51,7 @@ namespace SteeringBehavioursCore.Model.Behaviour
                 {
                     if (closenessDist > 20)
                     {
-                        //acccelerate to max speed
+                        //accelerate to max speed
                         curBoid.Velocity += (closenessPos - curBoid.Position) * Weight;
                     }
                     else
