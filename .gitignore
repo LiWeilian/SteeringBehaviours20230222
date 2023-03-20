@@ -12,6 +12,8 @@ AvoidObstacleBoids/bin/
 AvoidObstacleBoids/obj/
 HiddenBoids/bin/
 HiddenBoids/obj/
+KeySteeringBoids/bin/
+KeySteeringBoids/obj/
 packages/
 *.lock
 *.ide

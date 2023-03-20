@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31829.152
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteeringBehavioursCore", "SteeringBehavioursCore\SteeringBehavioursCore.csproj", "{FD1046F7-BAA7-4B65-8D60-871747BC48B5}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoidObstacleBoids", "AvoidObstacleBoids\AvoidObstacleBoids.csproj", "{C2401986-5FAF-4742-9C9A-0E331AB24417}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiddenBoids", "HiddenBoids\HiddenBoids.csproj", "{8BA08791-F091-4A92-8EED-5BA5346B7FFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeySteeringBoids", "KeySteeringBoids\KeySteeringBoids.csproj", "{008B6C99-9CDF-4ED4-B097-2728C1B6B351}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{8BA08791-F091-4A92-8EED-5BA5346B7FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BA08791-F091-4A92-8EED-5BA5346B7FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BA08791-F091-4A92-8EED-5BA5346B7FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008B6C99-9CDF-4ED4-B097-2728C1B6B351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008B6C99-9CDF-4ED4-B097-2728C1B6B351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008B6C99-9CDF-4ED4-B097-2728C1B6B351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008B6C99-9CDF-4ED4-B097-2728C1B6B351}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
