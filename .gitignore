@@ -2,6 +2,8 @@ SteeringBehavioursCore/bin/
 SteeringBehavioursCore/obj/
 FlockingBoidsDemo/bin/
 FlockingBoidsDemo/obj/
+FlockingBoidsDemoWithGL/bin/
+FlockingBoidsDemoWithGL/obj/
 ArriveBoids/bin/
 ArriveBoids/obj/
 PathFollowingBoids/bin/
